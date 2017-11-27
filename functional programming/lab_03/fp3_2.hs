@@ -1,15 +1,12 @@
 data ReverseList a = RNil | RCons (ReverseList a) a
 
-toList:: ReverseList a -> [a]
 toList RNil = []
-toList (RCons xs x) = (toList xs) ++ [x]
+toList (RCons xs x) = x : toList xs
 
-toRList:: [a] -> ReverseList a
-toRList [] = RNil
-toRList x = RCons (toRList $ init x) (last x)
+toRList = reverse.toList
 
 instance (Show a) => Show (ReverseList a) where
-    show l = show (toList l)
+    show = show.toList
 
 instance (Eq a) => Eq (ReverseList a) where
     (==) a b = (==) (toList a) (toList b)
